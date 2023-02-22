@@ -4,7 +4,7 @@ import app from "../app";
 const request = supertest(app);
 describe("Test endpoint responses", () => {
   it("gets the api endpoint", async (done) => {
-    const response = await request.get("/api");
+    const response = await request.get("/");
     expect(response.status).toBe(200);
     done();
   });
