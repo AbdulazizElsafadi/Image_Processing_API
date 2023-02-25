@@ -1,6 +1,5 @@
 import express from "express";
 import imageRouter from "./routes/imageRouter";
-import path from "path";
 
 const app = express();
 // console.log("_dirname:", __dirname);

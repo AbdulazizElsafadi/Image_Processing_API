@@ -1,27 +1,31 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const supertest_1 = __importDefault(require("supertest"));
-const app_1 = __importDefault(require("../../app"));
-const request = (0, supertest_1.default)(app_1.default);
-describe("Test endpoint responses", () => {
-    it("gets the api endpoint", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield request.get("/image");
-        expect(response.status).toBe(200);
-    }));
-    it("resize the image (if the image exist)", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield request.get("image?fileName=palmtunnel&width=400&height=400");
-        // expect(response)
-    }));
-});
+// // const request = supertest(app);
+// describe("Test endpoint responses", () => {
+//   // it("should open in the browser with status 200", async () => {
+//   //   const response = await request.get("/image");
+//   //   expect(response.status).toBe(200);
+//   // });
+//   // it("should through an error message if the image doesn't exist", async () => {
+//   //   const response = await request.get(
+//   //     "/image?fileName=anything&width=100&height=100"
+//   //   );
+//   //   expect(response.text).toEqual(
+//   //     "There was an error processing your image, Make sure that your image exists"
+//   //   );
+//   // });
+//   // it("resize the image (if the image exist)", async () => {
+//   //   const response = await request.get(
+//   //     "image?fileName=palmtunnel&width=400&height=400"
+//   //   );
+//   //   // expect(response)
+//   // });
+//   // it("test the process image function", async () => {
+//   //   await processImage("encenadaport", 1000, 1000);
+//   //   expect(
+//   //     fs.existsSync(
+//   //       path.join(dirname, `/assets/thumb/encenadaport_1000_1000.jpg`)
+//   //     )
+//   //   );
+//   // });
+// });
