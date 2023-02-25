@@ -1,7 +1,12 @@
 import express from "express";
 import imageRouter from "./routes/imageRouter";
+import path from "path";
 
 const app = express();
+// console.log("_dirname:", __dirname);
+// express.static(path.join(__dirname, "/assets"));
+
+export const dirname = __dirname;
 
 app.get("/", (req, res) => {
   res.redirect("/image");
