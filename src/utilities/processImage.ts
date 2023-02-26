@@ -1,7 +1,11 @@
 import sharp from "sharp";
 import path = require("path");
 
-export default async (fileName: string, width: number, height: number) => {
+export default async (
+  fileName: string,
+  width: number,
+  height: number
+): Promise<Object> => {
   // console.log(
   //   "path is:",
   //   path.join(__dirname, `../assets/images/${fileName}.jpg`)
