@@ -3,7 +3,7 @@ import path from "path";
 import processImage from "../utilities/processImage";
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/", async (req, res): Promise<void> => {
   const { fileName, width, height } = req.query;
 
   // console.log("fileName:", fileName);
