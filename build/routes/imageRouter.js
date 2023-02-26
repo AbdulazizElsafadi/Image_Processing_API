@@ -65,34 +65,18 @@ router.get("/", function (req, res) { return __awaiter(void 0, void 0, void 0, f
                     res.send("<h1>width and height must be bigger than zero</h1>");
                     return [2 /*return*/];
                 }
-                if (!(0, isFileExist_1.default)(fileName, parseInt(width), parseInt(width))) return [3 /*break*/, 1];
-                console.log("Existing File is sent");
+                if (!(0, isFileExist_1.default)(fileName, parseInt(width), parseInt(height))) return [3 /*break*/, 1];
+                // console.log("Existing File is sent");
                 res.sendFile("".concat(fileName, "_").concat(width, "_").concat(height, ".jpg"), {
                     root: path_1.default.join(__dirname, "../../assets/thumb/"),
                 });
                 return [2 /*return*/];
             case 1:
                 _b.trys.push([1, 3, , 4]);
-                // console.log(
-                //   "isFileExist:",
-                //   isFileExist(
-                //     fileName as string,
-                //     parseInt(width as string),
-                //     parseInt(width as string)
-                //   )
-                // );
                 return [4 /*yield*/, (0, processImage_1.default)(fileName, parseInt(width), parseInt(height))];
             case 2:
-                // console.log(
-                //   "isFileExist:",
-                //   isFileExist(
-                //     fileName as string,
-                //     parseInt(width as string),
-                //     parseInt(width as string)
-                //   )
-                // );
                 _b.sent();
-                console.log("New File is created");
+                // console.log("New File is created");
                 res.sendFile("".concat(fileName, "_").concat(width, "_").concat(height, ".jpg"), {
                     root: path_1.default.join(__dirname, "../../assets/thumb/"),
                 });
