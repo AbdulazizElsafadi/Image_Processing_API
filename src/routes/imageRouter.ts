@@ -1,10 +1,12 @@
 import express from "express";
 import path from "path";
+import { Request, Response } from "express";
+
 import isFileExist from "../utilities/isFileExist";
 import processImage from "../utilities/processImage";
 const router = express.Router();
 
-router.get("/", async (req, res): Promise<void> => {
+router.get("/", async (req: Request, res: Response): Promise<void> => {
   const { fileName, width, height } = req.query;
 
   // console.log("fileName:", fileName);
@@ -30,7 +32,7 @@ router.get("/", async (req, res): Promise<void> => {
   //   isFileExist(
   //     fileName as string,
   //     parseInt(width as string),
-  //     parseInt(width as string)
+  //     parseInt(height as string)
   //   )
   // );
 
@@ -38,7 +40,7 @@ router.get("/", async (req, res): Promise<void> => {
     isFileExist(
       fileName as string,
       parseInt(width as string),
-      parseInt(width as string)
+      parseInt(height as string)
     )
   ) {
     // console.log("Existing File is sent");
@@ -48,15 +50,6 @@ router.get("/", async (req, res): Promise<void> => {
     return;
   } else {
     try {
-      // console.log(
-      //   "isFileExist:",
-      //   isFileExist(
-      //     fileName as string,
-      //     parseInt(width as string),
-      //     parseInt(width as string)
-      //   )
-      // );
-
       await processImage(
         fileName as string,
         parseInt(width as string),
