@@ -16,7 +16,7 @@ describe("Test endpoint responses", () => {
       "/image?fileName=anything&width=100&height=100"
     );
     expect(response.text).toEqual(
-      "<h1>There was an error processing your image, Make sure that your image exists</h1>"
+      "<h1>Your File doesn't exist!! Make sure you included the right file</h1>"
     );
   });
 
@@ -24,9 +24,7 @@ describe("Test endpoint responses", () => {
     const response = await request.get(
       "/image?fileName=encenadaport&width=0&height=-1"
     );
-    expect(response.text).toEqual(
-      "<h1>width and height must be bigger than zero</h1>"
-    );
+    expect(response.text).toEqual("<h1>Width and Height must be numbers!</h1>");
   });
 
   it("test the process image function", async () => {

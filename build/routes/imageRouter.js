@@ -41,6 +41,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var path_1 = __importDefault(require("path"));
+var isFileExist_1 = __importDefault(require("../utilities/isFileExist"));
 var processImage_1 = __importDefault(require("../utilities/processImage"));
 var router = express_1.default.Router();
 router.get("/", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
@@ -52,16 +53,46 @@ router.get("/", function (req, res) { return __awaiter(void 0, void 0, void 0, f
                 // console.log("fileName:", fileName);
                 // console.log("width:", width);
                 // console.log("height:", height);
+                if (!fileName || !width || !height) {
+                    res.send("<h1>Either the fileName or the width or the height is missing,<br/> please insure to provide all needed data</h1>");
+                    return [2 /*return*/];
+                }
+                if (!parseInt(width) || !parseInt(height)) {
+                    res.send("<h1>Width and Height must be numbers!</h1>");
+                    return [2 /*return*/];
+                }
                 if (parseInt(width) <= 0 || parseInt(height) <= 0) {
                     res.send("<h1>width and height must be bigger than zero</h1>");
                     return [2 /*return*/];
                 }
-                _b.label = 1;
+                if (!(0, isFileExist_1.default)(fileName, parseInt(width), parseInt(width))) return [3 /*break*/, 1];
+                console.log("Existing File is sent");
+                res.sendFile("".concat(fileName, "_").concat(width, "_").concat(height, ".jpg"), {
+                    root: path_1.default.join(__dirname, "../../assets/thumb/"),
+                });
+                return [2 /*return*/];
             case 1:
                 _b.trys.push([1, 3, , 4]);
+                // console.log(
+                //   "isFileExist:",
+                //   isFileExist(
+                //     fileName as string,
+                //     parseInt(width as string),
+                //     parseInt(width as string)
+                //   )
+                // );
                 return [4 /*yield*/, (0, processImage_1.default)(fileName, parseInt(width), parseInt(height))];
             case 2:
+                // console.log(
+                //   "isFileExist:",
+                //   isFileExist(
+                //     fileName as string,
+                //     parseInt(width as string),
+                //     parseInt(width as string)
+                //   )
+                // );
                 _b.sent();
+                console.log("New File is created");
                 res.sendFile("".concat(fileName, "_").concat(width, "_").concat(height, ".jpg"), {
                     root: path_1.default.join(__dirname, "../../assets/thumb/"),
                 });
@@ -69,7 +100,7 @@ router.get("/", function (req, res) { return __awaiter(void 0, void 0, void 0, f
             case 3:
                 err_1 = _b.sent();
                 // console.log("err:", err);
-                res.send("<h1>There was an error processing your image, Make sure that your image exists</h1>");
+                res.send("<h1>Your File doesn't exist!! Make sure you included the right file</h1>");
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
         }

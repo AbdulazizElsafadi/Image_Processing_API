@@ -65,7 +65,7 @@ describe("Test endpoint responses", function () {
                 case 0: return [4 /*yield*/, request.get("/image?fileName=anything&width=100&height=100")];
                 case 1:
                     response = _a.sent();
-                    expect(response.text).toEqual("<h1>There was an error processing your image, Make sure that your image exists</h1>");
+                    expect(response.text).toEqual("<h1>Your File doesn't exist!! Make sure you included the right file</h1>");
                     return [2 /*return*/];
             }
         });
@@ -77,7 +77,7 @@ describe("Test endpoint responses", function () {
                 case 0: return [4 /*yield*/, request.get("/image?fileName=encenadaport&width=0&height=-1")];
                 case 1:
                     response = _a.sent();
-                    expect(response.text).toEqual("<h1>width and height must be bigger than zero</h1>");
+                    expect(response.text).toEqual("<h1>Width and Height must be numbers!</h1>");
                     return [2 /*return*/];
             }
         });

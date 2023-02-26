@@ -10,7 +10,7 @@ app.get("/", (req, res): void => {
 app.use("/image", imageRouter);
 
 app.get("/health/live", (req, res): void => {
-  res.send("The server is healthy");
+  res.send("OK");
 });
 
 app.listen(3000, (): void => {
