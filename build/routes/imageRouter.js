@@ -41,8 +41,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var path_1 = __importDefault(require("path"));
-var app_1 = require("../app");
-var processImage_1 = __importDefault(require("../../utilities/processImage"));
+var processImage_1 = __importDefault(require("../utilities/processImage"));
 var router = express_1.default.Router();
 router.get("/", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var _a, fileName, width, height, err_1;
@@ -50,6 +49,13 @@ router.get("/", function (req, res) { return __awaiter(void 0, void 0, void 0, f
         switch (_b.label) {
             case 0:
                 _a = req.query, fileName = _a.fileName, width = _a.width, height = _a.height;
+                // console.log("fileName:", fileName);
+                // console.log("width:", width);
+                // console.log("height:", height);
+                if (parseInt(width) <= 0 || parseInt(height) <= 0) {
+                    res.send("<h1>width and height must be bigger than zero</h1>");
+                    return [2 /*return*/];
+                }
                 _b.label = 1;
             case 1:
                 _b.trys.push([1, 3, , 4]);
@@ -57,11 +63,12 @@ router.get("/", function (req, res) { return __awaiter(void 0, void 0, void 0, f
             case 2:
                 _b.sent();
                 res.sendFile("".concat(fileName, "_").concat(width, "_").concat(height, ".jpg"), {
-                    root: path_1.default.join(app_1.dirname, "/assets/thumb/"),
+                    root: path_1.default.join(__dirname, "../../assets/thumb/"),
                 });
                 return [3 /*break*/, 4];
             case 3:
                 err_1 = _b.sent();
+                // console.log("err:", err);
                 res.send("<h1>There was an error processing your image, Make sure that your image exists</h1>");
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];

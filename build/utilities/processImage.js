@@ -41,14 +41,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var sharp_1 = __importDefault(require("sharp"));
 var path = require("path");
-var app_1 = require("../src/app");
 exports.default = (function (fileName, width, height) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, (0, sharp_1.default)(path.join(app_1.dirname, "/assets/images/".concat(fileName, ".jpg")))
+            case 0: return [4 /*yield*/, (0, sharp_1.default)(path.join(__dirname, "../../assets/images/".concat(fileName, ".jpg")))
                     .resize(width, height)
-                    .toFile(path.join(app_1.dirname, "/assets/thumb/".concat(fileName, "_").concat(width, "_").concat(height, ".jpg")))];
-            case 1: return [2 /*return*/, _a.sent()];
+                    .toFile(path.join(__dirname, "../../assets/thumb/".concat(fileName, "_").concat(width, "_").concat(height, ".jpg")))];
+            case 1: 
+            // console.log(
+            //   "path is:",
+            //   path.join(__dirname, `../assets/images/${fileName}.jpg`)
+            // );
+            return [2 /*return*/, _a.sent()];
         }
     });
 }); });

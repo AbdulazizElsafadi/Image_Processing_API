@@ -42,10 +42,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var supertest_1 = __importDefault(require("supertest"));
 var fs_1 = __importDefault(require("fs"));
 var path_1 = __importDefault(require("path"));
-var app_1 = require("../app");
-var processImage_1 = __importDefault(require("../../utilities/processImage"));
-var app_2 = __importDefault(require("../app"));
-var request = (0, supertest_1.default)(app_2.default);
+var processImage_1 = __importDefault(require("../utilities/processImage"));
+var app_1 = __importDefault(require("../app"));
+var request = (0, supertest_1.default)(app_1.default);
 describe("Test endpoint responses", function () {
     it("should open in the browser with status 200", function () { return __awaiter(void 0, void 0, void 0, function () {
         var response;
@@ -66,18 +65,19 @@ describe("Test endpoint responses", function () {
                 case 0: return [4 /*yield*/, request.get("/image?fileName=anything&width=100&height=100")];
                 case 1:
                     response = _a.sent();
-                    expect(response.text).toEqual("There was an error processing your image, Make sure that your image exists");
+                    expect(response.text).toEqual("<h1>There was an error processing your image, Make sure that your image exists</h1>");
                     return [2 /*return*/];
             }
         });
     }); });
-    it("resize the image (if the image exist)", function () { return __awaiter(void 0, void 0, void 0, function () {
+    it("insures that the width and height are bigger than zero", function () { return __awaiter(void 0, void 0, void 0, function () {
         var response;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, request.get("image?fileName=palmtunnel&width=400&height=400")];
+                case 0: return [4 /*yield*/, request.get("/image?fileName=encenadaport&width=0&height=-1")];
                 case 1:
                     response = _a.sent();
+                    expect(response.text).toEqual("<h1>width and height must be bigger than zero</h1>");
                     return [2 /*return*/];
             }
         });
@@ -85,10 +85,21 @@ describe("Test endpoint responses", function () {
     it("test the process image function", function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, (0, processImage_1.default)("encenadaport", 1000, 1000)];
+                case 0: return [4 /*yield*/, (0, processImage_1.default)("fjord", 500, 500)];
                 case 1:
                     _a.sent();
-                    expect(fs_1.default.existsSync(path_1.default.join(app_1.dirname, "/assets/thumb/encenadaport_1000_1000.jpg")));
+                    expect(fs_1.default.existsSync(path_1.default.join(__dirname, "../../assets/thumb/fjord_500_500.jpg")));
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it("test the /image endpoint whether it resizes the image successfully or NOT", function () { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, request.get("/image?fileName=palmtunnel&width=400&height=400")];
+                case 1:
+                    _a.sent();
+                    expect(fs_1.default.existsSync(path_1.default.join(__dirname, "../../assets/thumb/palmtunnel_400_400.jpg")));
                     return [2 /*return*/];
             }
         });
