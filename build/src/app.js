@@ -4,17 +4,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.dirname = void 0;
-const express_1 = __importDefault(require("express"));
-const imageRouter_1 = __importDefault(require("./routes/imageRouter"));
-const app = (0, express_1.default)();
+var express_1 = __importDefault(require("express"));
+var imageRouter_1 = __importDefault(require("./routes/imageRouter"));
+var app = (0, express_1.default)();
 // console.log("_dirname:", __dirname);
 // express.static(path.join(__dirname, "/assets"));
 exports.dirname = __dirname;
-app.get("/", (req, res) => {
+app.get("/", function (req, res) {
     res.redirect("/image");
 });
 app.use("/image", imageRouter_1.default);
-app.listen(3000, () => {
+app.listen(3000, function () {
     console.log("listening on PORT 3000");
 });
 exports.default = app;
