@@ -1,5 +1,6 @@
 import sharp from "sharp";
 import path = require("path");
+import isFileExist from "./isFileExist";
 
 export default async (
   fileName: string,

@@ -1,5 +1,6 @@
 import express from "express";
 import path from "path";
+import isFileExist from "../utilities/isFileExist";
 import processImage from "../utilities/processImage";
 const router = express.Router();
 
@@ -10,24 +11,67 @@ router.get("/", async (req, res): Promise<void> => {
   // console.log("width:", width);
   // console.log("height:", height);
 
+  if (!fileName || !width || !height) {
+    res.send(
+      "<h1>Either the fileName or the width or the height is missing,<br/> please insure to provide all needed data</h1>"
+    );
+    return;
+  }
+  if (!parseInt(width as string) || !parseInt(height as string)) {
+    res.send("<h1>Width and Height must be numbers!</h1>");
+    return;
+  }
   if (parseInt(width as string) <= 0 || parseInt(height as string) <= 0) {
     res.send("<h1>width and height must be bigger than zero</h1>");
     return;
   }
-  try {
-    await processImage(
+  // console.log(
+  //   "isFileExist:",
+  //   isFileExist(
+  //     fileName as string,
+  //     parseInt(width as string),
+  //     parseInt(width as string)
+  //   )
+  // );
+
+  if (
+    isFileExist(
       fileName as string,
       parseInt(width as string),
-      parseInt(height as string)
-    );
+      parseInt(width as string)
+    )
+  ) {
+    // console.log("Existing File is sent");
     res.sendFile(`${fileName}_${width}_${height}.jpg`, {
       root: path.join(__dirname, `../../assets/thumb/`),
     });
-  } catch (err) {
-    // console.log("err:", err);
-    res.send(
-      "<h1>There was an error processing your image, Make sure that your image exists</h1>"
-    );
+    return;
+  } else {
+    try {
+      // console.log(
+      //   "isFileExist:",
+      //   isFileExist(
+      //     fileName as string,
+      //     parseInt(width as string),
+      //     parseInt(width as string)
+      //   )
+      // );
+
+      await processImage(
+        fileName as string,
+        parseInt(width as string),
+        parseInt(height as string)
+      );
+      // console.log("New File is created");
+      res.sendFile(`${fileName}_${width}_${height}.jpg`, {
+        root: path.join(__dirname, `../../assets/thumb/`),
+      });
+    } catch (err) {
+      // console.log("err:", err);
+      res.send(
+        "<h1>Your File doesn't exist!! Make sure you included the right file</h1>"
+      );
+    }
   }
 });
 

@@ -10,6 +10,9 @@ app.get("/", function (req, res) {
     res.redirect("/image");
 });
 app.use("/image", imageRouter_1.default);
+app.get("/health/live", function (req, res) {
+    res.send("OK");
+});
 app.listen(3000, function () {
     console.log("listening on PORT 3000");
 });

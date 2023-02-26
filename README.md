@@ -6,17 +6,20 @@ For this project, refactor and test as much as possible while you are building. 
 
 ## To Run The Project
 
-1. **Make sure you installed node on your device**
+1. **Make sure you installed node on your device.**
+
    [Node](https://nodejs.org/en/)
 
-2. **npm install**
+2. **npm install.**
+
    To install all dependencies of the project
 
-3. **Navigate to http://localhost:3000**
+3. **Navigate to http://localhost:3000.**
 
-4. **Use the Health Check Endpoint**
+4. **Use the Health Check Endpoint.**
+
    This endpoint is created to insure that the server is working
    http://localhost:3000/health/live
    It should send OK
 
-5. **Enjoy The Project**
+5. **Enjoy The Project.**
